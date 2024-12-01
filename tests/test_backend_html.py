@@ -10,6 +10,7 @@ from docling.datamodel.document import (
     SectionHeaderItem,
 )
 from docling.document_converter import DocumentConverter
+from docling.datamodel.document import DoclingDocument
 
 GENERATE = False
 

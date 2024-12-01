@@ -1,9 +1,3 @@
-<p align="center">
-  <a href="https://github.com/ds4sd/docling">
-    <img loading="lazy" alt="Docling" src="https://github.com/DS4SD/docling/raw/main/docs/assets/docling_processing.png" width="100%"/>
-  </a>
-</p>
-
 # 🦆 Docling
 
 <p align="center">
@@ -83,19 +77,6 @@ demonstrating how to address different application use cases with Docling.
 To further accelerate your AI application development, check out Docling's native
 [integrations](https://ds4sd.github.io/docling/integrations/) with popular frameworks
 and tools.
-
-## Get help and support
-
-Please feel free to connect with us using the [discussion section](https://github.com/DS4SD/docling/discussions).
-
-## Technical report
-
-For more details on Docling's inner workings, check out the [Docling Technical Report](https://arxiv.org/abs/2408.09869).
-
-## Contributing
-
-Please read [Contributing to Docling](https://github.com/DS4SD/docling/blob/main/CONTRIBUTING.md) for details.
-
 ## References
 
 If you use Docling in your projects, please consider citing the following:
@@ -112,12 +93,3 @@ If you use Docling in your projects, please consider citing the following:
   year = {2024}
 }
 ```
-
-## License
-
-The Docling codebase is under MIT license.
-For individual model usage, please refer to the model licenses found in the original packages.
-
-## IBM ❤️ Open Source AI
-
-Docling has been brought to you by IBM.

@@ -13,10 +13,6 @@ from docling.document_converter import DocumentConverter
 
 _log = logging.getLogger(__name__)
 
-USE_V2 = True
-USE_LEGACY = True
-
-
 def export_documents(
     conv_results: Iterable[ConversionResult],
     output_dir: Path,
@@ -32,54 +28,27 @@ def export_documents(
             success_count += 1
             doc_filename = conv_res.input.file.stem
 
-            if USE_V2:
-                # Export Docling document format to JSON:
-                with (output_dir / f"{doc_filename}.json").open("w") as fp:
-                    fp.write(json.dumps(conv_res.document.export_to_dict()))
+            # Export Docling document format to JSON:
+            with (output_dir / f"{doc_filename}.json").open("w") as fp:
+                fp.write(json.dumps(conv_res.document.export_to_dict()))
 
-                # Export Docling document format to YAML:
-                with (output_dir / f"{doc_filename}.yaml").open("w") as fp:
-                    fp.write(yaml.safe_dump(conv_res.document.export_to_dict()))
+            # Export Docling document format to markdown:
+            with (output_dir / f"{doc_filename}.md").open("w") as fp:
+                fp.write(conv_res.document.export_to_markdown())
 
-                # Export Docling document format to doctags:
-                with (output_dir / f"{doc_filename}.doctags.txt").open("w") as fp:
-                    fp.write(conv_res.document.export_to_document_tokens())
+            # Export Docling document format to YAML:
+            with (output_dir / f"{doc_filename}.yaml").open("w") as fp:
+                fp.write(yaml.safe_dump(conv_res.document.export_to_dict()))
 
-                # Export Docling document format to markdown:
-                with (output_dir / f"{doc_filename}.md").open("w") as fp:
-                    fp.write(conv_res.document.export_to_markdown())
+            # Export Docling document format to doctags:
+            with (output_dir / f"{doc_filename}.doctags.txt").open("w") as fp:
+                fp.write(conv_res.document.export_to_document_tokens())
+            
+            # Export Docling document format to text:
+            with (output_dir / f"{doc_filename}.txt").open("w") as fp:
+                fp.write(conv_res.document.export_to_markdown(strict_text=True))
 
-                # Export Docling document format to text:
-                with (output_dir / f"{doc_filename}.txt").open("w") as fp:
-                    fp.write(conv_res.document.export_to_markdown(strict_text=True))
-
-            if USE_LEGACY:
-                # Export Deep Search document JSON format:
-                with (output_dir / f"{doc_filename}.legacy.json").open(
-                    "w", encoding="utf-8"
-                ) as fp:
-                    fp.write(json.dumps(conv_res.legacy_document.export_to_dict()))
-
-                # Export Text format:
-                with (output_dir / f"{doc_filename}.legacy.txt").open(
-                    "w", encoding="utf-8"
-                ) as fp:
-                    fp.write(
-                        conv_res.legacy_document.export_to_markdown(strict_text=True)
-                    )
-
-                # Export Markdown format:
-                with (output_dir / f"{doc_filename}.legacy.md").open(
-                    "w", encoding="utf-8"
-                ) as fp:
-                    fp.write(conv_res.legacy_document.export_to_markdown())
-
-                # Export Document Tags format:
-                with (output_dir / f"{doc_filename}.legacy.doctags.txt").open(
-                    "w", encoding="utf-8"
-                ) as fp:
-                    fp.write(conv_res.legacy_document.export_to_document_tokens())
-
+            
         elif conv_res.status == ConversionStatus.PARTIAL_SUCCESS:
             _log.info(
                 f"Document {conv_res.input.file} was partially converted with the following errors:"
